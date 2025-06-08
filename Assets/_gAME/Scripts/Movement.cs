@@ -3,27 +3,42 @@
 public class Movement : MonoBehaviour
 {
 
-	public float jumpForce = 10f;
-	public GameObject groundCheck;
-	public LayerMask groundLayer;
-	
-	private Rigidbody _rb;
-	
-	private bool _canJump = false;
-	
-	// Awake is called when the script instance is being loaded.
-	private void Awake()
-	{
-		_rb = GetComponent<Rigidbody>();
-	}
-
-    // Update is called once per frame
-	void Update()
-	{
-		if (Physics.Raycast(groundCheck.transform.position, Vector3.down, 0.15f, groundLayer) && Input.GetKey(KeyCode.Space))
-		{
-			_rb.AddForce(Vector3.up * jumpForce);
-		}
-	
-	}
+	public float jumpHeight = 2f;
+        public float gravity = -30f;
+        public LayerMask groundMask;
+        public Transform groundCheck;
+        public float groundCheckRadius = 0.2f;
+    
+        private float verticalVelocity = 0f;
+        private bool isGrounded = false;
+        private CharacterController controller;
+    
+        void Start()
+        {
+            controller = GetComponent<CharacterController>();
+        }
+    
+        void Update()
+        {
+            // Ground check
+            isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundMask);
+    
+            if (isGrounded && verticalVelocity < 0)
+            {
+                verticalVelocity = -2f; // Stick to the ground
+            }
+    
+            // Jump input
+            if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+            {
+                verticalVelocity = Mathf.Sqrt(-2f * gravity * jumpHeight);
+            }
+    
+            // Apply gravity
+            verticalVelocity += gravity * Time.deltaTime;
+    
+            // Move
+            Vector3 move = new Vector3(0, verticalVelocity, 0); // 5f = horizontal speed
+            controller.Move(move * Time.deltaTime);
+        }
 }
