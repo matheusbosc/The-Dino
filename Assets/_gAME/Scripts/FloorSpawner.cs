@@ -9,6 +9,7 @@ public class FloorSpawner : MonoBehaviour
 	public float floorSpeed = 10f;
 	public GameObject[] spawnPoints;
 	public GameObject[] obstaclePrefabs;
+	public Movement player;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -23,15 +24,17 @@ public class FloorSpawner : MonoBehaviour
 	    		Destroy(spawnPoints[sPI].transform.GetChild(t + 1).gameObject);
 	    	}
 	    	
-		    Instantiate(obstaclePrefabs[oPI].gameObject, spawnPoints[sPI].transform.position, spawnPoints[sPI].transform.rotation, spawnPoints[sPI].transform);
-		    
+		    var o = Instantiate(obstaclePrefabs[oPI].gameObject, spawnPoints[sPI].transform.position, spawnPoints[sPI].transform.rotation, spawnPoints[sPI].transform);
+		    o.tag = "Obstacle";
 	    }
     }
 
     // Update is called once per frame
     void Update()
-    {
-        transform.Translate(Vector3.right * (Time.deltaTime * floorSpeed));
+	{
+		var move = Vector3.right * (Time.deltaTime * floorSpeed);
+		move = player.isDead ? Vector3.zero : move;
+		transform.Translate(move);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -42,6 +45,7 @@ public class FloorSpawner : MonoBehaviour
             Debug.Log("Collided Floor");
             var i = Instantiate(floorPrefab, floorSpawnPoint.position, floorPrefab.transform.rotation);
             i.GetComponent<FloorSpawner>().floorSpawnPoint = floorSpawnPoint;
+	        i.GetComponent<FloorSpawner>().player = player;
         }
     }
 

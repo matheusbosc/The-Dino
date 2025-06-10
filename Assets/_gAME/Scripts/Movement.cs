@@ -11,7 +11,8 @@ public class Movement : MonoBehaviour
     
         private float verticalVelocity = 0f;
         private bool isGrounded = false;
-        private CharacterController controller;
+	private CharacterController controller;
+	public bool isDead;
     
         void Start()
         {
@@ -38,7 +39,8 @@ public class Movement : MonoBehaviour
             verticalVelocity += gravity * Time.deltaTime;
     
             // Move
-            Vector3 move = new Vector3(0, verticalVelocity, 0); // 5f = horizontal speed
+	        Vector3 move = new Vector3(0, verticalVelocity, 0); // 5f = horizontal speed
+	        move = isDead ? Vector3.zero : move;
             controller.Move(move * Time.deltaTime);
         }
 }
