@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1850874951434245802}
   - component: {fileID: 2257872824659263317}
   m_Layer: 3
-  m_Name: Floor
+  m_Name: Floor 1
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128,8 +128,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floorPrefab:
+  - {fileID: 94794239684244905, guid: 382e9af5225d4aa46bdf81a093d74e90, type: 3}
   - {fileID: 94794239684244905}
-  - {fileID: 94794239684244905, guid: bc133765de482ec4384a4dd887a2e2d0, type: 3}
   - {fileID: 94794239684244905, guid: 8b575809a7ae1ab488c947189e98f725, type: 3}
   - {fileID: 94794239684244905, guid: 63ac53363e36fae4cac0a80bb3977397, type: 3}
   floorSpawnPoint: {fileID: 0}
@@ -346,7 +346,7 @@ Transform:
   m_GameObject: {fileID: 7221391780663458345}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2274, y: 0.011, z: 0}
+  m_LocalPosition: {x: 0.2274, y: 0.0286, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -365,19 +365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstaclePrefabs:
-  - {fileID: 3470613247047671775, guid: f00c9ed87ea000f40ae520095f91ff15, type: 3}
-  - {fileID: 4082188591508085479, guid: 0cc4de483289a7b4b81ba2ba9667f183, type: 3}
-  - {fileID: 7691314535702657349, guid: 5ed5593657285114a9e1212b1a8271c5, type: 3}
-  - {fileID: 6479759223444859786, guid: 03eca62b3df7aa644a371e9b87be743b, type: 3}
-  - {fileID: 9018302683863910988, guid: e7a563515ab88ce4f9e42c8ec8264d7e, type: 3}
-  - {fileID: 6071963772903820380, guid: fc46e1d42557aaa40abc25745b17c41c, type: 3}
-  - {fileID: 5677044697495093194, guid: 2da5c7482c2601a40970849fe56cefac, type: 3}
-  - {fileID: 6878918318733821018, guid: a77bd9b597ef8d041b6a518f09bcc015, type: 3}
-  - {fileID: 2871158736391705441, guid: aa0777b71352c794fb2a54c935e2274d, type: 3}
-  - {fileID: 6090347620644767036, guid: f0d0953a81eeae246adb71e35e4fc40d, type: 3}
-  - {fileID: 1446192650290437682, guid: 1cd11b4d1ea38394b96273ee9295e1d9, type: 3}
-  - {fileID: 4707362399012376738, guid: 570abf496bfd46547b98c35b61766717, type: 3}
-  - {fileID: 2697115163702974706, guid: 61e4d3281b9191f4486eaba5042e4029, type: 3}
+  - {fileID: 9018302683863910988, guid: 3a6dd3b477c0688448604aedd3de2436, type: 3}
 --- !u!1 &7904763188257897547
 GameObject:
   m_ObjectHideFlags: 0

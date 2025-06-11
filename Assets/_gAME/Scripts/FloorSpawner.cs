@@ -1,32 +1,24 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class FloorSpawner : MonoBehaviour
 {
     
-    public GameObject floorPrefab;
+    public GameObject[] floorPrefab;
     public Transform floorSpawnPoint;
 	public float floorSpeed = 10f;
 	public GameObject[] spawnPoints;
 	public GameObject[] obstaclePrefabs;
 	public Movement player;
+	public bool canSpawnFloors = true;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Start()
     {
-	    for (int i = 0; i <= 1; i++)
-	    {
-	    	var sPI = UnityEngine.Random.Range(0, spawnPoints.Length);
-	    	var oPI = UnityEngine.Random.Range(0, obstaclePrefabs.Length);
-	    	
-	    	for(int t = spawnPoints[sPI].transform.childCount; t > 0; i--)
-	    	{
-	    		Destroy(spawnPoints[sPI].transform.GetChild(t + 1).gameObject);
-	    	}
-	    	
-		    var o = Instantiate(obstaclePrefabs[oPI].gameObject, spawnPoints[sPI].transform.position, spawnPoints[sPI].transform.rotation, spawnPoints[sPI].transform);
-		    o.tag = "Obstacle";
-	    }
+	    StartCoroutine("SpeedUp");
     }
 
     // Update is called once per frame
@@ -37,16 +29,33 @@ public class FloorSpawner : MonoBehaviour
 		transform.Translate(move);
     }
 
+     IEnumerator SpeedUp()
+     {
+	     yield return new WaitForSeconds(1.5f);
+
+	     if (floorSpeed <= 30)
+	     {
+		     floorSpeed += 0.05f;
+		     StartCoroutine("SpeedUp");
+	     }
+     }
+
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collided");
-        if (other.gameObject.CompareTag("FloorTrigger"))
-        {
-            Debug.Log("Collided Floor");
-            var i = Instantiate(floorPrefab, floorSpawnPoint.position, floorPrefab.transform.rotation);
-            i.GetComponent<FloorSpawner>().floorSpawnPoint = floorSpawnPoint;
-	        i.GetComponent<FloorSpawner>().player = player;
-        }
+	    if (canSpawnFloors)
+	    {
+		    Debug.Log("Collided");
+		    if (other.gameObject.CompareTag("FloorTrigger"))
+		    {
+			    var a = Random.Range(0, floorPrefab.Length);
+			    Debug.Log("Collided Floor");
+			    var i = Instantiate(floorPrefab[a], floorSpawnPoint.position, floorPrefab[a].transform.rotation);
+			    i.GetComponent<FloorSpawner>().floorSpawnPoint = floorSpawnPoint;
+			    i.GetComponent<FloorSpawner>().player = player;
+			    i.GetComponent<FloorSpawner>().floorSpeed = floorSpeed;
+			    i.GetComponent<FloorSpawner>().Start();
+		    }
+	    }
     }
 
     private void OnTriggerExit(Collider other)

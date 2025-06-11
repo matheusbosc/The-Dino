@@ -15,11 +15,11 @@ public class Obstacle : MonoBehaviour
     }
     
 	// OnCollisionEnter is called when this collider/rigidbody has begun touching another rigidbody/collider.
-	private void OnTriggerEnter(Collision collisionInfo)
+	private void OnTriggerEnter(Collider collisionInfo)
 	{
-		if (collisionInfo.collider.CompareTag("Player"))
+		if (collisionInfo.CompareTag("Player"))
 		{
-			collisionInfo.collider.gameObject.GetComponent<Movement>().isDead = true;
+			collisionInfo.gameObject.GetComponent<Movement>().isDead = true;
 			print ("dead");
 		}
 	}

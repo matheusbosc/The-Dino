@@ -184,11 +184,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -1764823716405763439, guid: fc46e1d42557aaa40abc25745b17c41c, type: 3}
       propertyPath: m_UseGravity
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -1764823716405763439, guid: fc46e1d42557aaa40abc25745b17c41c, type: 3}
       propertyPath: m_IsKinematic
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6071963772903820380, guid: fc46e1d42557aaa40abc25745b17c41c, type: 3}
       propertyPath: m_Name
@@ -271,11 +271,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -5001102237038834306, guid: aa0777b71352c794fb2a54c935e2274d, type: 3}
       propertyPath: m_UseGravity
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -5001102237038834306, guid: aa0777b71352c794fb2a54c935e2274d, type: 3}
       propertyPath: m_IsKinematic
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1360572154802688623, guid: aa0777b71352c794fb2a54c935e2274d, type: 3}
       propertyPath: m_LocalScale.x
