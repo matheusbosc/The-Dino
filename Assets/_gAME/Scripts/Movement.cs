@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Movement : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class Movement : MonoBehaviour
         public Collider[] crouchCol;
 
         public Animator anim;
+
+        public GameObject deadMenu;
     
         private float verticalVelocity = 0f;
         private bool isGrounded = false;
@@ -85,5 +88,20 @@ public class Movement : MonoBehaviour
 	        Vector3 move = new Vector3(0, verticalVelocity, 0); // 5f = horizontal speed
 	        move = isDead ? Vector3.zero : move;
             controller.Move(move * Time.deltaTime);
+        }
+
+        public void ToggleDeadMenu(bool a)
+        {
+            deadMenu.SetActive(a);
+        }
+
+        public void RestartGame()
+        {
+            SceneManager.LoadScene("Game");
+        }
+
+        public void OpenMenu()
+        {
+            SceneManager.LoadScene("Main Menu");
         }
 }

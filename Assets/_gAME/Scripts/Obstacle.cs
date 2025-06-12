@@ -20,6 +20,7 @@ public class Obstacle : MonoBehaviour
 		if (collisionInfo.CompareTag("Player"))
 		{
 			collisionInfo.gameObject.GetComponent<Movement>().isDead = true;
+			collisionInfo.gameObject.GetComponent<Movement>().ToggleDeadMenu(true);
 			print ("dead");
 		}
 	}
