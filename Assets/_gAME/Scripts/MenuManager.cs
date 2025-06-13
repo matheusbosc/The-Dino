@@ -33,7 +33,7 @@ public class MenuManager : MonoBehaviour
     {
         loadingScreen.SetActive(true);
         mainMenu.SetActive(false);
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(4f);
         SceneManager.LoadScene(a);
     }
 

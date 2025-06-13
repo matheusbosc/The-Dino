@@ -8,6 +8,9 @@ TagManager:
   - FloorTrigger
   - Obstacle
   - LoadingScreen
+  - ScoreSetter
+  - TimeText
+  - MusicPlayer
   layers:
   - Default
   - TransparentFX

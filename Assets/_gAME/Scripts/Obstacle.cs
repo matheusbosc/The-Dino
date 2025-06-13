@@ -21,6 +21,8 @@ public class Obstacle : MonoBehaviour
 		{
 			collisionInfo.gameObject.GetComponent<Movement>().isDead = true;
 			collisionInfo.gameObject.GetComponent<Movement>().ToggleDeadMenu(true);
+			collisionInfo.gameObject.GetComponent<Movement>().deadSound.Play();
+			GameObject.FindGameObjectWithTag("ScoreSetter").GetComponent<ScoreSetter>().Win();
 			print ("dead");
 		}
 	}

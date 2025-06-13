@@ -3,43 +3,49 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using System.Diagnostics;
+using Dan.Main;
 
-    public class Score : MonoBehaviour
+public class ScoreSetter : MonoBehaviour
     {
         private int damageTaken = 0;
         int timeInSeconds = 0;
-        private bool canCount = false;
+        private bool canCount = false, hasSetScore = false;
 
         public string uName = "";
+
+        public int score = 0;
         
 	    public TMP_InputField uNameField;
 
 	    private TextMeshProUGUI timeText;
-        
-	    Stopwatch watch;
+
+	    private Leaderboard lb;
+	    
+	    private string publicKey = "b431c8ef989533d958ece1e4b2b5b4f1e127ccfcd3276b496909dc355b548f6b";
+
 
         private void Start()
         {
 	        DontDestroyOnLoad(this.gameObject);
-	        
-	        
-	        watch = new Stopwatch();
         }
 
-        public void ResetValues()
+        public void StartCounter()
         {
-            damageTaken = 0;
-            timeInSeconds = 0;
             canCount = true;
-            //timeText = GameObject.FindGameObjectWithTag("TimeText").GetComponent<TextMeshProUGUI>();
-            if (watch.IsRunning)
-            {
-	            watch.Restart();
-            }
-            else
-            {
-	            watch.Start();
-            }
+
+            score = 0;
+
+            StartCoroutine("count");
+        }
+
+        IEnumerator count()
+        {
+	        yield return new WaitForSeconds(0.3f);
+	        if (canCount)
+	        {
+		        score += 1;
+		        StartCoroutine("count");
+	        }
         }
 
         private void Update()
@@ -50,58 +56,27 @@ using System.Diagnostics;
 		        {
 			        timeText = GameObject.FindGameObjectWithTag("TimeText").GetComponent<TextMeshProUGUI>();
 		        }
-		        timeText.text = TimeString((int)watch.Elapsed.TotalSeconds);
+		        timeText.text = score.ToString();
 	        }
-        }
-
-        public void IncreaseDamage(int a)
-        {
-            damageTaken += a;
+	        
         }
 
         public void Win()
         {
-	        watch.Stop();
 	        canCount = false;
-	        TimeSpan ts = watch.Elapsed;
-	        
-	        timeInSeconds = (int)ts.TotalSeconds;
-	        //Invoke("SetScore", 10);
-        }
 
-	    public void SetScore()
-        {
-	        StartCoroutine(setScoreA());
+	        while (!hasSetScore)
+	        {
+		        try
+		        {
+			        LeaderboardCreator.UploadNewEntry(publicKey, PlayerPrefs.GetString("Name"), score, ((msg) => { }));
+					hasSetScore = true;
+		        }
+		        catch (Exception e)
+		        {
+			        Console.WriteLine(e);
+			        throw;
+		        }
+	        }
         }
-        
-	    private IEnumerator setScoreA()
-	    {
-	    	yield return new WaitForSeconds(0.5f);
-	    	GameObject.FindGameObjectWithTag("LeaderboardManager").GetComponent<Leaderboard>().SetLeaderboardEntry(timeInSeconds, damageTaken);
-	    }
-	    
-	    private string TimeString(int t)
-	    {
-		    bool isSettingTime = true;
-		    int seconds = 0;
-		    int minutes = 0;
-            
-		    while (isSettingTime)
-		    {
-			    if (t >= 60)
-			    {
-				    minutes++;
-				    t -= 60;
-			    }
-			    else
-			    {
-				    seconds = t;
-				    isSettingTime = false;
-			    }
-		    }
-            
-		    return minutes.ToString("00") + "m " + seconds.ToString("00") + "s";
-	    }
-        
-        // TODO: add tags, test
     }

@@ -16,6 +16,9 @@ public class Movement : MonoBehaviour
         public Animator anim;
 
         public GameObject deadMenu;
+        
+        public AudioSource jumpSound;
+        public AudioSource deadSound;
     
         private float verticalVelocity = 0f;
         private bool isGrounded = false;
@@ -42,10 +45,17 @@ public class Movement : MonoBehaviour
             {
                 verticalVelocity = Mathf.Sqrt(-2f * gravity * jumpHeight);
             }
+            
+            if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+            {
+                jumpSound.Play();
+            }
 
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 isCrouched = true;
+                
+                
             } else if (Input.GetKeyUp(KeyCode.DownArrow))
             {
                 isCrouched = false;

@@ -33,9 +33,9 @@ public class FloorSpawner : MonoBehaviour
      {
 	     yield return new WaitForSeconds(1.5f);
 
-	     if (floorSpeed <= 35)
+	     if (floorSpeed <= 45)
 	     {
-		     floorSpeed += 0.05f;
+		     floorSpeed += 0.1f;
 		     StartCoroutine("SpeedUp");
 	     }
      }
