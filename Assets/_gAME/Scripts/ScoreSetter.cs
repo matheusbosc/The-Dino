@@ -71,6 +71,7 @@ public class ScoreSetter : MonoBehaviour
 		        {
 			        LeaderboardCreator.UploadNewEntry(publicKey, PlayerPrefs.GetString("Name"), score, ((msg) => { }));
 					hasSetScore = true;
+					print("leaderboard set");
 		        }
 		        catch (Exception e)
 		        {
